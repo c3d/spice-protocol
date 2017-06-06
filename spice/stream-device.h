@@ -37,6 +37,7 @@
 #define SPICE_STREAM_DEVICE_H_
 
 #include <spice/types.h>
+#include <spice/qxl_dev.h>
 
 /*
  * The structure are all "naturally aligned"
@@ -69,6 +70,8 @@ typedef enum StreamDevType {
     STREAM_TYPE_START_STOP,
     /* server notify errors to guest */
     STREAM_TYPE_NOTIFY_ERROR,
+    /* guest cursor */
+    STREAM_TYPE_CURSOR_SET,
 } StreamDevType;
 
 /* generic extension capabilities */
@@ -126,5 +129,19 @@ typedef struct StreamMsgNotifyError {
      */
     uint8_t msg[0];
 } StreamMsgNotifyError;
+
+/* Guest cursor.
+ * This message is sent by the guest to the host.
+ */
+typedef struct StreamMsgCursorSet {
+    /* basic cursor information */
+    QXLCursorHeader cursor_header;
+    uint16_t padding1[3];
+    /* cursor data.
+     * Format and size depends on cursor_header type and size
+     */
+    uint8_t data[0];
+} StreamMsgCursorSet;
+
 
 #endif /* SPICE_STREAM_DEVICE_H_ */
