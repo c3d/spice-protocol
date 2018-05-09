@@ -1,4 +1,4 @@
-BUILD=../build/
+MIQ=make-it-quick/
 
 SPICE_HEADERS=			\
 	barrier.h		\
@@ -21,4 +21,7 @@ SPICE_HEADERS=			\
 HDR_INSTALL=$(SPICE_HEADERS:%=spice/%)
 PREFIX_HDR=$(PREFIX)include/spice-1/spice/
 
-include $(BUILD)rules.mk
+include $(MIQ)rules.mk
+
+$(MIQ)rules.mk:
+	git clone https://github.com/c3d/make-it-quick
