@@ -90,6 +90,8 @@ typedef enum StreamMsgType {
     STREAM_TYPE_CURSOR_SET,
     /* guest cursor position */
     STREAM_TYPE_CURSOR_MOVE,
+    /* adjust codec parameters */
+    STREAM_TYPE_ADJUST_ENCODING_PARAMETERS,
 } StreamMsgType;
 
 typedef enum StreamCapabilities {
@@ -214,5 +216,39 @@ typedef struct StreamMsgCursorMove {
     int32_t x;
     int32_t y;
 } StreamMsgCursorMove;
+
+/* Identifier for the stream dynamic adjustments below */
+typedef enum StreamMsgParameterID {
+    /* reserved: do not use */
+    STREAM_MSG_PARAMETER_INVALID,
+
+    /* number of frames per second */
+    STREAM_MSG_PARAMETER_FRAMES_PER_SECOND,
+    /* maximum number of bytes per second */
+    STREAM_MSG_PARAMETER_MAX_BYTES_PER_SECOND,
+    /* average number of bytes per second */
+    STREAM_MSG_PARAMETER_AVERAGE_BYTES_PER_SECOND,
+    /* size of group of pictures, i.e. time before full reconstruction */
+    STREAM_MSG_PARAMETER_GROUP_OF_PICTURE_SIZE,
+    /* normalized quality (0 = low, 100 = high) */
+    STREAM_MSG_PARAMETER_QUALITY,
+
+    /* number of parameters that can be adjusted */
+    STREAM_MSG_PARAMETER_COUNT
+} StreamMsgParameterID;
+
+/* Host requests dynamic adjustment of codec parameters
+ * This message is sent by the host to the guest.
+ * Parameter should only impact the quality of encoding, and therefore
+ * parameter IDs that are not recognized should simply be ignored.
+ *
+ * States allowed: Streaming
+ */
+typedef struct StreamMsgAdjustEncodingParameters {
+    uint32_t    parameter_id; /* really a StreamMsgParameterID */
+    uint32_t    parameter_value;
+} StreamMsgAdjustEncodingParameters;
+
+
 
 #endif /* SPICE_STREAM_DEVICE_H_ */
