@@ -12,6 +12,7 @@ SPICE_HEADERS=			\
 	protocol.h		\
 	qxl_dev.h		\
 	qxl_windows.h		\
+	stream-device.h		\
 	start-packed.h		\
 	stats.h			\
 	types.h			\
