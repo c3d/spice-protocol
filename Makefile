@@ -19,6 +19,15 @@ SPICE_HEADERS=			\
 	vd_agent.h		\
 	vdi_dev.h
 
+PACKAGE_NAME=spice-protocol
+PACKAGE_VERSION=0.12.14
+PACKAGE_DESCRIPTION=SPICE protocol
+PACKAGE_URL=https://spice-space.org
+PACKAGE_REQUIRES=
+PACKAGE_BUGS=spice-devel@lists.freedesktop.org
+PACKAGE_PREFIX_HDR=$(PREFIX)include/spice-1/
+
+
 HDR_INSTALL=$(SPICE_HEADERS:%=spice/%)
 PREFIX_HDR=$(PREFIX)include/spice-1/spice/
 
