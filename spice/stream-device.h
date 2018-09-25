@@ -249,6 +249,8 @@ typedef struct StreamMsgAdjustEncodingParameters {
     uint32_t    parameter_value;
 } StreamMsgAdjustEncodingParameters;
 
-
+// Scaling for frames per second for a better averaging in server
+#define SPICE_FPS_METRIC_SCALING  1024
+#define SPICE_FPS_DISPLAY_SCALING (1.0/SPICE_FPS_METRIC_SCALING)
 
 #endif /* SPICE_STREAM_DEVICE_H_ */
